@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Appointment": {
+      "title": "Appointment Request",
+      "description": "A request for a dental appointment from a patient.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Patient's full name" },
+        "email": { "type": "string", "format": "email", "description": "Patient's email address" },
+        "phone": { "type": "string", "description": "Patient's phone number" },
+        "service": { "type": "string", "description": "Requested dental service" },
+        "date": { "type": "string", "description": "Preferred appointment date" },
+        "message": { "type": "string", "description": "Additional message from the patient" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"], "description": "Current status of the appointment" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the request was submitted" }
+      },
+      "required": ["name", "phone", "service", "status", "createdAt"]
+    },
+    "User": {
+      "title": "Clinic User",
+      "description": "A user of the clinic management system.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "staff"] }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Collection of appointment requests."
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and roles."
+    }
+  }
+}
